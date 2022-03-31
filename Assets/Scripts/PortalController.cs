@@ -5,7 +5,6 @@ public class PortalController : MonoBehaviour
     [SerializeField] private Transform otherPortal;
     [SerializeField] private float launchForce;
     
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

@@ -8,6 +8,7 @@ TagManager:
   - PortalEntrance
   - Lava
   - Water
+  - WaterPickup
   layers:
   - Default
   - TransparentFX

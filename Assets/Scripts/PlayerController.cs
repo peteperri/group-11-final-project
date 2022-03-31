@@ -1,6 +1,8 @@
 using Cinemachine;
+using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -13,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int extraJumpCount = 2;
     [SerializeField] private float launchForce = 1000;
     [SerializeField] private int platformAmmo = 0;
+    [SerializeField] private int waterAmmo = 5;
     [SerializeField] private bool canSpawnPlatforms = true;
     [SerializeField] private float turnSmoothTime = 0.1f;
     
@@ -20,7 +23,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private GameObject platformPrefab;
     [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Text ammoText;
+    [FormerlySerializedAs("ammoText")] [SerializeField] private Text platformPickupAmmoText;
+    [SerializeField] private Text waterAmmoText;
     [SerializeField] private Text healthText;
 
     private CharacterController _controller;
@@ -54,7 +58,9 @@ public class PlayerController : MonoBehaviour
         _groundMask = LayerMask.GetMask("Ground");
         _platMask = LayerMask.GetMask("Platform");
 
-        healthText.text = "Health: " + health.ToString();
+        healthText.text = "Health: " + health;
+        platformPickupAmmoText.text = "You cannot spawn platforms.";
+        waterAmmoText.text = "Water shots left: " + waterAmmo;
     }
 
     private void Update()
@@ -79,10 +85,17 @@ public class PlayerController : MonoBehaviour
         {
             
             platformAmmo += 5;
-            ammoText.text = "You can spawn platforms.\n" +
+            platformPickupAmmoText.text = "You can spawn platforms.\n" +
                             "Platform ammo: " + platformAmmo.ToString();
             canSpawnPlatforms = true;
             Destroy(other.gameObject);
+        }
+        
+        if (other.gameObject.CompareTag("WaterPickup"))
+        {
+            waterAmmo += 5;
+            waterAmmoText.text = "Water shots left: " + waterAmmo;
+            Destroy(other.transform.parent.gameObject);
         }
     }
 
@@ -141,8 +154,8 @@ public class PlayerController : MonoBehaviour
     //inputActions method
     public void Look(InputAction.CallbackContext context)
     {
-        _freeLook.m_XAxis.m_InputAxisValue = context.ReadValue<Vector2>().x;
-        _freeLook.m_YAxis.m_InputAxisValue = context.ReadValue<Vector2>().y;
+        _freeLook.m_XAxis.m_InputAxisValue = context.ReadValue<Vector2>().x * 0.05f;
+        _freeLook.m_YAxis.m_InputAxisValue = context.ReadValue<Vector2>().y * 0.05f;
     }
     
     //inputActions method
@@ -159,7 +172,7 @@ public class PlayerController : MonoBehaviour
         else if(canSpawnPlatforms && !_hasSpawnedPlatform && platformAmmo > 0)
         {
             platformAmmo--;
-            ammoText.text = "You can spawn platforms.\n" +
+            platformPickupAmmoText.text = "You can spawn platforms.\n" +
                             "Platform ammo: " + platformAmmo.ToString();
             _hasSpawnedPlatform = true;
             Vector3 pos = GetComponent<Transform>().position;
@@ -176,21 +189,23 @@ public class PlayerController : MonoBehaviour
         {
             speed *= sprintSpeedMultiplier;
             _sprinting = true;
-            Debug.Log("Initiated sprint. Speed: " + speed);
+            //Debug.Log("Initiated sprint. Speed: " + speed);
         }
         
         if (context.canceled && _sprinting)
         {
             _sprinting = false;
             speed /= sprintSpeedMultiplier;
-            Debug.Log("Stopped sprint. Speed: " + speed);
+            //Debug.Log("Stopped sprint. Speed: " + speed);
         }
     }
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.canceled) return; 
-        
+        if (!context.started || waterAmmo <= 0) return;
+
+        waterAmmo--;
+        waterAmmoText.text = "Water shots left: " + waterAmmo;
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         projectile.GetComponent<Rigidbody>().AddRelativeForce(this.transform.forward * launchForce);
 
