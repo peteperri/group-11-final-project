@@ -97,6 +97,12 @@ public class PlayerController : MonoBehaviour
             waterAmmoText.text = "Water shots left: " + waterAmmo;
             Destroy(other.transform.parent.gameObject);
         }
+
+        if (other.gameObject.CompareTag("Fuse"))
+        {
+            Debug.Log("Collided with Fuse");
+            other.gameObject.SetActive(false);
+        }
     }
 
     private void Move()

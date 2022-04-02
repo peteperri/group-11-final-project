@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PickupController : MonoBehaviour
 {
-    [SerializeField] private bool rotates;
-    [SerializeField] private float xRotation;
-    [SerializeField] private float yRotation;
-    [SerializeField] private float zRotation;
+    public bool rotates;
+    public float xRotation;
+    public float yRotation;
+    public float zRotation;
     
     void Update()
     {

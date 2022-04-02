@@ -9,6 +9,8 @@ TagManager:
   - Lava
   - Water
   - WaterPickup
+  - Fuse
+  - FuseBox
   layers:
   - Default
   - TransparentFX
