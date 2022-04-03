@@ -31,7 +31,7 @@ public class RobotController : MonoBehaviour
         {
             Patrol();
         }
-        Look();
+        ///Look();
         
     }
 
@@ -59,16 +59,16 @@ public class RobotController : MonoBehaviour
         }
     }
 
-    private void Look()
-    {
-        if (_player.ShortFOV && crouchStillFOV.PlayerSeen)
-        {
-            Debug.Log("You've been caught while crouching or while still!");
-        }
-
-        if (!_player.ShortFOV && movingFOV.PlayerSeen)
-        {
-            Debug.Log("You've been caught while moving!");
-        }
-    }
+    ///private void Look()
+    ///{
+    ///    if (_player.ShortFOV && crouchStillFOV.PlayerSeen)
+    ///    {
+    ///        Debug.Log("You've been caught while crouching or while still!");
+    ///   }
+    ///
+    ///    if (!_player.ShortFOV && movingFOV.PlayerSeen)
+    ///    {
+    ///        Debug.Log("You've been caught while moving!");
+    ///    }
+    ///}
 }
