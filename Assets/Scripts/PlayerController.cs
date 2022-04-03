@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 velocity;
     
     
-    private const float GroundDistance = 0.2f;
+    private const float GroundDistance = 0.05f;
     
     private void Start()
     {
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         _platMask = LayerMask.GetMask("Platform");
 
         healthText.text = "Health: " + health;
-        platformPickupAmmoText.text = "You cannot spawn platforms.";
+        platformPickupAmmoText.text = "";
         waterAmmoText.text = "Water shots left: " + waterAmmo;
     }
 

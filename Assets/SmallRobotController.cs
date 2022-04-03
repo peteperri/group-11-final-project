@@ -6,11 +6,13 @@ public class SmallRobotController : MonoBehaviour
 {
     [SerializeField] private Transform[] spots;
     [SerializeField] private float speed;
+    [SerializeField] private WheelController wheel;
     private int _currentSpot;
     private string _state = "Patrolling";
+    private bool _died = false;
     private PlayerController _player;
     private bool _canHurtPlayer = true;
-
+    
     private void Start()
     {
         _player = FindObjectOfType<PlayerController>();
@@ -28,7 +30,22 @@ public class SmallRobotController : MonoBehaviour
             Chase();
         }
 
-        transform.rotation = new Quaternion(0.0f, transform.rotation.y, 0.0f, transform.rotation.w);
+        if (_state == "Dead")
+        {
+            _canHurtPlayer = false;
+            if (!_died)
+            {
+                transform.Rotate(new Vector3(0.0f, 0.0f, -90.0f));
+                wheel.rotationSpeed = 0.0f;
+                _died = true;
+            }
+            
+        }
+        else
+        {
+            transform.rotation = new Quaternion(0.0f, transform.rotation.y, 0.0f, transform.rotation.w);
+        }
+        
     }
 
     private void Patrol()
@@ -54,9 +71,20 @@ public class SmallRobotController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_state == "Dead") return;
+        
         if (other.CompareTag("Player"))
         {
+            wheel.rotationSpeed = 90;
             _state = "Chasing";
+        }
+        
+        if (other.CompareTag("Water") && GetComponent<Collider>().GetType() == typeof(CapsuleCollider))
+        {
+            speed = 0;
+            Destroy(other.gameObject);
+            _state = "Dead";
+            Debug.Log("dead");
         }
     }
 
@@ -68,11 +96,6 @@ public class SmallRobotController : MonoBehaviour
             _canHurtPlayer = false;
             StartCoroutine(WaitForSeconds());
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        //StartCoroutine(WaitForSeconds());
     }
 
     private IEnumerator WaitForSeconds()
