@@ -4,6 +4,11 @@ public class PortalController : MonoBehaviour
 {
     [SerializeField] private Transform otherPortal;
     [SerializeField] private float launchForce;
+
+    private void Update()
+    {
+        transform.Rotate(-45.0f * Time.deltaTime, 0.0f, 0.0f);
+    }
     
     private void OnTriggerEnter(Collider other)
     {

@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int waterAmmo = 5;
     [SerializeField] private bool canSpawnPlatforms = true;
     [SerializeField] private float turnSmoothTime = 0.1f;
+    [SerializeField] private Animator animator;
     
     [SerializeField] private GameObject cineMachine;
     [SerializeField] private Transform groundCheck;
@@ -24,7 +25,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [FormerlySerializedAs("ammoText")] [SerializeField] private Text platformPickupAmmoText;
     [SerializeField] private Text waterAmmoText;
-    [SerializeField] private Text healthText;
 
     private CharacterController _controller;
     private Camera _camera;
@@ -37,12 +37,12 @@ public class PlayerController : MonoBehaviour
     private bool _hasSpawnedPlatform;
     private bool _canJump;
     private bool _isGrounded;
-    bool _sprinting = false;
+    private bool _sprinting = false;
     
     public Vector3 velocity;
     
     
-    private const float GroundDistance = 0.2f;
+    private const float GroundDistance = 0.05f;
     
     private void Start()
     {
@@ -56,10 +56,9 @@ public class PlayerController : MonoBehaviour
         _playerActions.Player.Enable();
         _groundMask = LayerMask.GetMask("Ground");
         _platMask = LayerMask.GetMask("Platform");
-
-        healthText.text = "Health: " + health;
-        platformPickupAmmoText.text = "You cannot spawn platforms.";
-        waterAmmoText.text = "Water shots left: " + waterAmmo;
+        
+        platformPickupAmmoText.text = "";
+        waterAmmoText.text = waterAmmo.ToString();
     }
 
     private void Update()
@@ -93,7 +92,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("WaterPickup"))
         {
             waterAmmo += 5;
-            waterAmmoText.text = "Water shots left: " + waterAmmo;
+            waterAmmoText.text = waterAmmo.ToString();
             Destroy(other.transform.parent.gameObject);
         }
 
@@ -113,12 +112,18 @@ public class PlayerController : MonoBehaviour
 
         if (direction.magnitude >= 0.1)
         {
+            animator.SetBool("IsWalking", true);
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.transform.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity,
                 turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             _controller.Move( speed * Time.deltaTime * moveDirection.normalized);
+        }
+        else
+        {
+            animator.SetBool("IsWalking", false);
+            animator.SetBool("IsSprinting", false);
         }
     }
 
@@ -132,6 +137,7 @@ public class PlayerController : MonoBehaviour
         if (_canJump && velocity.y < 0)
         {
             velocity.y = -2f;
+            animator.SetBool("IsJumping", false);
         }
         else
         {
@@ -142,7 +148,7 @@ public class PlayerController : MonoBehaviour
         if (_isGrounded || Physics.CheckSphere(groundPos, GroundDistance, _platMask))
         {
             if (_isGrounded)
-            { 
+            {
                 _hasSpawnedPlatform = false;  
             }
             _currentJumps = 0;
@@ -153,7 +159,6 @@ public class PlayerController : MonoBehaviour
     public void ChangeHealth(int amount)
     {
         health += amount;
-        healthText.text = "Health: " + health.ToString();
     }
     
     //inputActions method
@@ -171,6 +176,7 @@ public class PlayerController : MonoBehaviour
         
         if ( _canJump || _currentJumps < extraJumpCount)
         {
+            animator.SetBool("IsJumping", true);
             _currentJumps++;
             velocity.y = Mathf.Sqrt(JumpHeight * -2f * GravityForce);
         }
@@ -192,6 +198,7 @@ public class PlayerController : MonoBehaviour
         
         if (context.performed && _canJump)
         {
+            animator.SetBool("IsSprinting", true);
             speed *= sprintSpeedMultiplier;
             _sprinting = true;
             //Debug.Log("Initiated sprint. Speed: " + speed);
@@ -199,6 +206,7 @@ public class PlayerController : MonoBehaviour
         
         if (context.canceled && _sprinting)
         {
+            animator.SetBool("IsSprinting", false);
             _sprinting = false;
             speed /= sprintSpeedMultiplier;
             //Debug.Log("Stopped sprint. Speed: " + speed);
@@ -210,9 +218,14 @@ public class PlayerController : MonoBehaviour
         if (!context.started || waterAmmo <= 0) return;
 
         waterAmmo--;
-        waterAmmoText.text = "Water shots left: " + waterAmmo;
+        waterAmmoText.text = waterAmmo.ToString();
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         projectile.GetComponent<Rigidbody>().AddRelativeForce(this.transform.forward * launchForce);
 
+    }
+
+    public int getHealth()
+    {
+        return health;
     }
 }
