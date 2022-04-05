@@ -12,11 +12,15 @@ public class HA11Controller : MonoBehaviour
     private PlayerController _player;
     private bool _canHurtPlayer = true;
     private Animation _animation;
+    [SerializeField] private AudioSource walkingSounds;
+    [SerializeField] private AudioSource alertSound;
+    [SerializeField] private AudioClip died;
     
     private void Start()
     {
         _player = FindObjectOfType<PlayerController>();
         _animation = GetComponent<Animation>();
+        StartCoroutine(PlayWalkSounds());
     }
 
     void Update()
@@ -36,6 +40,8 @@ public class HA11Controller : MonoBehaviour
             _canHurtPlayer = false;
             if (!_died)
             {
+                alertSound.clip = died;
+                alertSound.Play();
                 transform.Rotate(new Vector3(-90.0f, 0.0f, 0.0f));
                 _died = true;
             }
@@ -65,7 +71,7 @@ public class HA11Controller : MonoBehaviour
 
     private void Chase()
     {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z), speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z), speed/1.5f * Time.deltaTime);
         transform.LookAt(new Vector3(_player.transform.position.x, transform.position.y, _player.transform.position.z));
     }
 
@@ -76,6 +82,7 @@ public class HA11Controller : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _state = "Chasing";
+            alertSound.Play();
         }
         
         if (other.CompareTag("Water") && GetComponent<Collider>().GetType() == typeof(CapsuleCollider))
@@ -102,5 +109,19 @@ public class HA11Controller : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         _canHurtPlayer = true;
+    }
+    
+    private IEnumerator PlayWalkSounds()
+    {
+        while (true)
+        {
+            if (_state.Equals("Patrolling") || _state.Equals("Chasing"))
+            {
+                walkingSounds.Play();
+                yield return new WaitForSeconds(0.49f);
+            }
+            yield return null;
+        }
+        
     }
 }

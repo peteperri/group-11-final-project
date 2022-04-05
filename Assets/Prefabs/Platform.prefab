@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 4184577798239895955}
   - component: {fileID: 8059881893770223220}
   - component: {fileID: 7047267424971417834}
+  - component: {fileID: 1043583102}
   m_Layer: 3
   m_Name: pTorus9
   m_TagString: Untagged
@@ -90,7 +91,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2868457609616984997, guid: 4a10e77ad144f464f8856c48538d6a91, type: 3}
+  - {fileID: 2100000, guid: ee77189693d3826448df76163c1afc9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,6 +113,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1043583102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300980839898471190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8bc868476082da4584837f12458f55f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 720
 --- !u!1 &4442489009680418665
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +294,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1693662209954940374, guid: 4a10e77ad144f464f8856c48538d6a91, type: 3}
+  - {fileID: 2100000, guid: 213fc4d831658dc4bb6ac8e0917319a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

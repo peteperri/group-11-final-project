@@ -1,6 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -18,11 +19,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canSpawnPlatforms = true;
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private Animator animator;
-    
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject cineMachine;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private GameObject platformPrefab;
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private AudioClip hurtSound;
+    [SerializeField] private AudioClip healthSound;
+    [SerializeField] private AudioClip shootSound;
+    [SerializeField] private AudioClip gotWater;
+    [SerializeField] private AudioClip gotFuse;
+    [SerializeField] private AudioClip jumpSound;
     [FormerlySerializedAs("ammoText")] [SerializeField] private Text platformPickupAmmoText;
     [SerializeField] private Text waterAmmoText;
 
@@ -38,6 +45,8 @@ public class PlayerController : MonoBehaviour
     private bool _canJump;
     private bool _isGrounded;
     private bool _sprinting = false;
+    private bool _paused = false;
+    private AudioSource _playerSounds;
     
     public Vector3 velocity;
     
@@ -59,6 +68,7 @@ public class PlayerController : MonoBehaviour
         
         platformPickupAmmoText.text = "";
         waterAmmoText.text = waterAmmo.ToString();
+        _playerSounds = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -68,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            SceneManager.LoadScene("LoseMenu");
         }
         
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -81,7 +91,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlatPickup"))
         {
-            
             platformAmmo += 5;
             platformPickupAmmoText.text = "You can spawn platforms.\n" +
                             "Platform ammo: " + platformAmmo.ToString();
@@ -91,6 +100,8 @@ public class PlayerController : MonoBehaviour
         
         if (other.gameObject.CompareTag("WaterPickup"))
         {
+            _playerSounds.clip = gotWater;
+            _playerSounds.Play();
             waterAmmo += 5;
             waterAmmoText.text = waterAmmo.ToString();
             Destroy(other.transform.parent.gameObject);
@@ -98,8 +109,18 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Fuse"))
         {
+            _playerSounds.clip = gotFuse;
+            _playerSounds.Play();
             Debug.Log("Collided with Fuse");
             other.gameObject.SetActive(false);
+        }
+
+        if (other.gameObject.CompareTag("HealthPickup") && health < 3)
+        {
+            _playerSounds.clip = healthSound;
+            _playerSounds.Play();
+            other.gameObject.SetActive(false);
+            ChangeHealth(1);
         }
     }
 
@@ -158,6 +179,16 @@ public class PlayerController : MonoBehaviour
 
     public void ChangeHealth(int amount)
     {
+        if (amount > 0)
+        {
+            _playerSounds.clip = healthSound;
+            _playerSounds.Play();
+        }
+        else
+        {
+            _playerSounds.clip = hurtSound;
+            _playerSounds.Play();
+        }
         health += amount;
     }
     
@@ -179,6 +210,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsJumping", true);
             _currentJumps++;
             velocity.y = Mathf.Sqrt(JumpHeight * -2f * GravityForce);
+            _playerSounds.clip = jumpSound;
+            _playerSounds.Play();
         }
         else if(canSpawnPlatforms && !_hasSpawnedPlatform && platformAmmo > 0)
         {
@@ -217,11 +250,31 @@ public class PlayerController : MonoBehaviour
     {
         if (!context.started || waterAmmo <= 0) return;
 
+        _playerSounds.clip = shootSound;
+        _playerSounds.Play();
         waterAmmo--;
         waterAmmoText.text = waterAmmo.ToString();
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         projectile.GetComponent<Rigidbody>().AddRelativeForce(this.transform.forward * launchForce);
 
+    }
+
+    public void Pause(InputAction.CallbackContext context)
+    {
+        Debug.Log("pause key pressed");
+        if (!context.started) return;
+        if (_paused)
+        {
+            pauseMenu.SetActive(false);
+            _paused = false;
+            Time.timeScale = 1;
+        }
+        else
+        {
+            pauseMenu.SetActive(true);
+            _paused = true;
+            Time.timeScale = 0;
+        }
     }
 
     public int getHealth()

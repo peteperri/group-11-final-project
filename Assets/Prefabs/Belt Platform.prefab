@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1756026517494133035, guid: 6460d27c1594f1c4ea7d0d6c4314f936, type: 3}
+  - {fileID: 2100000, guid: 850bf6a7ed21e44499e954c6a588f3ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -140,7 +140,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 6460d27c1594f1c4ea7d0d6c4314f936, type: 3}
+  - {fileID: 2100000, guid: 69e67ae1fac501f4692cdeec230e289c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 6930727100997531379}
   - component: {fileID: 442448910137953790}
   - component: {fileID: 3340542060479539447}
+  - component: {fileID: 9042198030988816364}
   m_Layer: 3
   m_Name: Conveyor_Platform
   m_TagString: Untagged
@@ -268,7 +269,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1756026517494133035, guid: 6460d27c1594f1c4ea7d0d6c4314f936, type: 3}
+  - {fileID: 2100000, guid: ee77189693d3826448df76163c1afc9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -290,3 +291,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &9042198030988816364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7827685927454101004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8bc868476082da4584837f12458f55f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 720

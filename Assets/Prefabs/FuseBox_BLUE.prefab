@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuse: {fileID: 3767461440019906073}
+  icon: {fileID: 0}
 --- !u!1 &1263621350188680167
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,6 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuse: {fileID: 3767461440019906073}
+  icon: {fileID: 0}
 --- !u!114 &2109972974919001864
 MonoBehaviour:
   m_ObjectHideFlags: 0
