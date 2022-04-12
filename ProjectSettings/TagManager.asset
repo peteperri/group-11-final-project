@@ -12,6 +12,7 @@ TagManager:
   - Fuse
   - FuseBox
   - HealthPickup
+  - SmashGolem
   layers:
   - Default
   - TransparentFX

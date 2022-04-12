@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4474383415495794488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.657, z: 0}
+  m_LocalPosition: {x: 0, y: -1.752, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4474383417203846207}
@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 4474383417203846194}
   - component: {fileID: 4474383417203846204}
   - component: {fileID: 4474383417203846205}
+  - component: {fileID: 1108602613}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -235,7 +236,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4474383417203846200}
-  m_LocalRotation: {x: -0, y: 0.7003893, z: -0, w: 0.71376103}
+  m_LocalRotation: {x: 0, y: 0.70038617, z: 0, w: 0.71376413}
   m_LocalPosition: {x: -0.054462068, y: 2.26, z: 0.021818941}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -259,7 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JumpHeight: 3
   GravityForce: -39.2
-  speed: 5
+  speed: 7
   health: 3
   sprintSpeedMultiplier: 2
   extraJumpCount: 1
@@ -269,13 +270,19 @@ MonoBehaviour:
   canSpawnPlatforms: 0
   turnSmoothTime: 0.1
   animator: {fileID: 5648398118854179912}
+  pauseMenu: {fileID: 0}
   cineMachine: {fileID: 0}
   groundCheck: {fileID: 4474383415495794495}
   platformPrefab: {fileID: 3504519640004346108, guid: c0f52a47d9040d0459dcb66f3a6ac015, type: 3}
   projectilePrefab: {fileID: 3712247565610914337, guid: 88a8c7387291de142abfbba963c3c670, type: 3}
+  hurtSound: {fileID: 8300000, guid: 467e66d66240b4d4d8dd8838da501e2b, type: 3}
+  healthSound: {fileID: 8300000, guid: 72874dafa622d764a9240e632a9353c5, type: 3}
+  shootSound: {fileID: 8300000, guid: fa38f96249732e745b07a76f2d4074f3, type: 3}
+  gotWater: {fileID: 8300000, guid: 3987682648b556b408c069276aae3adb, type: 3}
+  gotFuse: {fileID: 8300000, guid: 2b17f66c5694e73448d0bee50cc5070d, type: 3}
+  jumpSound: {fileID: 8300000, guid: 7c80318f2ae9c624395b94e3f4f8dd97, type: 3}
   platformPickupAmmoText: {fileID: 0}
   waterAmmoText: {fileID: 0}
-  healthText: {fileID: 0}
   velocity: {x: 0, y: 0, z: 0}
 --- !u!143 &4474383417203846206
 CharacterController:
@@ -400,6 +407,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: abcbbc1d-35ff-46fc-ad2e-25f02305e076
     m_ActionName: Player/Shoot[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4474383417203846195}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: be6da9ad-723d-4122-a7d6-63973a167d89
+    m_ActionName: Player/Pause[/Keyboard/p]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -435,6 +458,102 @@ CapsuleCollider:
   m_Height: 3.6996822
   m_Direction: 1
   m_Center: {x: -0.016113281, y: -0.10478854, z: 0}
+--- !u!82 &1108602613
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4474383417203846200}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.75
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &2236513854815797721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -474,6 +593,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.10790801
       objectReference: {fileID: 0}
+    - target: {fileID: -9132900131629795433, guid: c1961744ef8087f4da81f467ecd69f89, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a98af231c6b011c4cb4e8d46e72a10bb, type: 2}
     - target: {fileID: -9131682983151303314, guid: c1961744ef8087f4da81f467ecd69f89, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 75.208435
@@ -1166,6 +1289,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -179.99995
       objectReference: {fileID: 0}
+    - target: {fileID: -7471593715498417651, guid: c1961744ef8087f4da81f467ecd69f89, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 29e9a970dbf78084480a68693e8daab9, type: 2}
     - target: {fileID: -7454290627003422479, guid: c1961744ef8087f4da81f467ecd69f89, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 80.36385

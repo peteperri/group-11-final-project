@@ -19,7 +19,6 @@ public class HA11Controller : MonoBehaviour
     private void Start()
     {
         _player = FindObjectOfType<PlayerController>();
-        _animation = GetComponent<Animation>();
         StartCoroutine(PlayWalkSounds());
     }
 

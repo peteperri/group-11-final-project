@@ -65,9 +65,17 @@ public class PlayerController : MonoBehaviour
         _playerActions.Player.Enable();
         _groundMask = LayerMask.GetMask("Ground");
         _platMask = LayerMask.GetMask("Platform");
+
+        if (platformPickupAmmoText != null)
+        {
+            platformPickupAmmoText.text = "";
+        }
+
         
-        platformPickupAmmoText.text = "";
-        waterAmmoText.text = waterAmmo.ToString();
+        if (pauseMenu != null)
+        {
+            waterAmmoText.text = waterAmmo.ToString();
+        }
         _playerSounds = GetComponent<AudioSource>();
     }
 
@@ -92,8 +100,12 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("PlatPickup"))
         {
             platformAmmo += 5;
-            platformPickupAmmoText.text = "You can spawn platforms.\n" +
-                            "Platform ammo: " + platformAmmo.ToString();
+            if (platformPickupAmmoText != null)
+            {
+                platformPickupAmmoText.text = "You can spawn platforms.\n" +
+                                              "Platform ammo: " + platformAmmo.ToString();
+            }
+
             canSpawnPlatforms = true;
             Destroy(other.gameObject);
         }
@@ -216,8 +228,11 @@ public class PlayerController : MonoBehaviour
         else if(canSpawnPlatforms && !_hasSpawnedPlatform && platformAmmo > 0)
         {
             platformAmmo--;
-            platformPickupAmmoText.text = "You can spawn platforms.\n" +
-                            "Platform ammo: " + platformAmmo.ToString();
+            if (platformPickupAmmoText != null)
+            {
+                platformPickupAmmoText.text = "You can spawn platforms.\n" +
+                                              "Platform ammo: " + platformAmmo.ToString();
+            }
             _hasSpawnedPlatform = true;
             Vector3 pos = GetComponent<Transform>().position;
             Instantiate(platformPrefab, new Vector3(pos.x, pos.y - 2.0f, pos.z), Quaternion.identity);
@@ -253,7 +268,10 @@ public class PlayerController : MonoBehaviour
         _playerSounds.clip = shootSound;
         _playerSounds.Play();
         waterAmmo--;
-        waterAmmoText.text = waterAmmo.ToString();
+        if (waterAmmoText != null)
+        {
+            waterAmmoText.text = waterAmmo.ToString();
+        }
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         projectile.GetComponent<Rigidbody>().AddRelativeForce(this.transform.forward * launchForce);
 
@@ -262,6 +280,7 @@ public class PlayerController : MonoBehaviour
     public void Pause(InputAction.CallbackContext context)
     {
         Debug.Log("pause key pressed");
+        if(pauseMenu == null) return; 
         if (!context.started) return;
         if (_paused)
         {
