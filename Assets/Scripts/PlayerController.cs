@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 velocity;
     
     
-    private const float GroundDistance = 0.05f;
+    public float GroundDistance = 0.2f;
     
     private void Start()
     {
