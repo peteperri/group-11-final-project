@@ -4056,6 +4056,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1236005567}
     - target: {fileID: 4474383417203846195, guid: e3a04a433f8621e46bdcf9a002b718d0, type: 3}
+      propertyPath: maxStamina
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4474383417203846195, guid: e3a04a433f8621e46bdcf9a002b718d0, type: 3}
       propertyPath: cineMachine
       value: 
       objectReference: {fileID: 684797713}
@@ -4558,7 +4562,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575759217}
-  m_LocalRotation: {x: 0.094464295, y: 0.19341685, z: -0.018713001, w: 0.97637916}
+  m_LocalRotation: {x: 0.09446428, y: 0.19341682, z: -0.018712996, w: 0.97637916}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

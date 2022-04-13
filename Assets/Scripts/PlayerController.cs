@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 6f;
     [SerializeField] private int health = 3;
     [SerializeField] private float sprintSpeedMultiplier = 2.0f;
+    [SerializeField] private float maxStamina = 10;
     [SerializeField] private int extraJumpCount = 2;
     [SerializeField] private float launchForce = 1000;
     [SerializeField] private int platformAmmo = 0;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip gotWater;
     [SerializeField] private AudioClip gotFuse;
     [SerializeField] private AudioClip jumpSound;
-    [FormerlySerializedAs("ammoText")] [SerializeField] private Text platformPickupAmmoText;
+    [SerializeField] private Text platformPickupAmmoText;
     [SerializeField] private Text waterAmmoText;
 
     private CharacterController _controller;
@@ -46,16 +47,15 @@ public class PlayerController : MonoBehaviour
     private bool _isGrounded;
     private bool _sprinting = false;
     private bool _paused = false;
+    private float _currentStamina;
     private AudioSource _playerSounds;
-    
+
     public Vector3 velocity;
-    
-    
     public float GroundDistance = 0.2f;
     
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         _camera = Camera.main;
         
         _controller = GetComponent<CharacterController>();
@@ -65,12 +65,12 @@ public class PlayerController : MonoBehaviour
         _playerActions.Player.Enable();
         _groundMask = LayerMask.GetMask("Ground");
         _platMask = LayerMask.GetMask("Platform");
+        _currentStamina = maxStamina;
 
         if (platformPickupAmmoText != null)
         {
             platformPickupAmmoText.text = "";
         }
-
         
         if (pauseMenu != null)
         {
@@ -88,7 +88,24 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene("LoseMenu");
         }
+
+        if (!_sprinting && _currentStamina < maxStamina)
+        {
+            _currentStamina += 1.0f * Time.deltaTime;
+        }
+
+        if (_sprinting)
+        {
+            _currentStamina -= 1.0f * Time.deltaTime;
+            if (_currentStamina <= 0)
+            {
+                animator.SetBool("IsSprinting", false);
+                _sprinting = false;
+                speed /= sprintSpeedMultiplier;
+            }
+        }
         
+
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -105,7 +122,6 @@ public class PlayerController : MonoBehaviour
                 platformPickupAmmoText.text = "You can spawn platforms.\n" +
                                               "Platform ammo: " + platformAmmo.ToString();
             }
-
             canSpawnPlatforms = true;
             Destroy(other.gameObject);
         }
@@ -244,12 +260,12 @@ public class PlayerController : MonoBehaviour
     public void Sprint(InputAction.CallbackContext context)
     {
         
-        if (context.performed && _canJump)
+        if (context.performed && _canJump && _currentStamina >= 0)
         {
             animator.SetBool("IsSprinting", true);
             speed *= sprintSpeedMultiplier;
             _sprinting = true;
-            //Debug.Log("Initiated sprint. Speed: " + speed);
+            Debug.Log(_currentStamina + "/" + maxStamina);
         }
         
         if (context.canceled && _sprinting)
@@ -257,7 +273,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsSprinting", false);
             _sprinting = false;
             speed /= sprintSpeedMultiplier;
-            //Debug.Log("Stopped sprint. Speed: " + speed);
         }
     }
 

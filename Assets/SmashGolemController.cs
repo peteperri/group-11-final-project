@@ -24,7 +24,6 @@ public class SmashGolemController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(State);
         if (State == "Patrolling")
         {
             Patrol();

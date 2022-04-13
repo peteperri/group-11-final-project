@@ -14,9 +14,7 @@ public class SmashGolemHurtboxController : MonoBehaviour
        
         if (other.CompareTag("Water"))
         {
-            Debug.Log("Triggered");
             _parent.State = "Dead";
-            Debug.Log("Killed thing");
         }
     }
 }
