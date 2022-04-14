@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2225,9 +2225,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7917291961305824890, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7334541483869665228, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6674455805586163991, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -4486940491637138327, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -2674925694444923124, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1700050685438491803, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
       propertyPath: m_Name
       value: Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869004960016252962, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5291134627740751233, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022215874312191456, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 030b83549ca93a64dad101ebe50244f9, type: 3}
@@ -2405,6 +2445,10 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 410040594}
+    - target: {fileID: 4474383417203846195, guid: e3a04a433f8621e46bdcf9a002b718d0, type: 3}
+      propertyPath: maxStamina
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4474383417203846195, guid: e3a04a433f8621e46bdcf9a002b718d0, type: 3}
       propertyPath: cineMachine
       value: 
