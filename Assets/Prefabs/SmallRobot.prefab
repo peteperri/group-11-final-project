@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 252875323439053798}
   - component: {fileID: 252875323439053793}
   - component: {fileID: 4041707439737170229}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SmallRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,9 +65,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.006473315
-  m_Height: 0.028752621
+  m_Height: 0.021041803
   m_Direction: 1
-  m_Center: {x: 0.0005897069, y: 0.012585701, z: -0.00044576643}
+  m_Center: {x: 0.0005897069, y: 0.0087302895, z: -0.00044576643}
 --- !u!65 &252875323439053798
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 5899758226236081646}
   - component: {fileID: 2195736159602383448}
   - component: {fileID: 470681353191047801}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 5627458899096138084}
   - component: {fileID: 252875322919631266}
   - component: {fileID: 7537800147978984373}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 7051195973078683882}
   - component: {fileID: 8079253607870438030}
   - component: {fileID: 1228489941104068534}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}

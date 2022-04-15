@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -49,9 +50,10 @@ public class PlayerController : MonoBehaviour
     private bool _paused = false;
     private float _currentStamina;
     private AudioSource _playerSounds;
+    private StaminaBarController _staminaBar;
 
     public Vector3 velocity;
-    public float GroundDistance = 0.2f;
+    public float GroundDistance = 0.075f;
     
     private void Start()
     {
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
         _groundMask = LayerMask.GetMask("Ground");
         _platMask = LayerMask.GetMask("Platform");
         _currentStamina = maxStamina;
+        _staminaBar = FindObjectOfType<StaminaBarController>();
 
         if (platformPickupAmmoText != null)
         {
@@ -104,6 +107,8 @@ public class PlayerController : MonoBehaviour
                 speed /= sprintSpeedMultiplier;
             }
         }
+        
+        _staminaBar.SetBarValue(_currentStamina);
         
 
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -149,6 +154,14 @@ public class PlayerController : MonoBehaviour
             _playerSounds.Play();
             other.gameObject.SetActive(false);
             ChangeHealth(1);
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("SmashGolem"))
+        {
+            ChangeHealth(-3);
         }
     }
 

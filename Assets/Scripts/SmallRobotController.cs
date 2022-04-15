@@ -95,7 +95,7 @@ public class SmallRobotController : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionStay(Collision other)
     {
         if (other.gameObject.CompareTag("Player") && _canHurtPlayer)
         {
@@ -107,7 +107,7 @@ public class SmallRobotController : MonoBehaviour
 
     private IEnumerator WaitForSeconds()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         _canHurtPlayer = true;
     }
 }

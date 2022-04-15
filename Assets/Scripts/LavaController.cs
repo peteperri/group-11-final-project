@@ -54,6 +54,19 @@ public class LavaController : MonoBehaviour
             _renderer.material = cooled;
             Destroy(other.gameObject);
         }
+        if(other.gameObject.CompareTag("Player") && _hot)
+        {
+            _damagingPlayer = true;
+            StartCoroutine(DamagePlayer());
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            _damagingPlayer = false;
+        }
     }
 
     private IEnumerator DamagePlayer()

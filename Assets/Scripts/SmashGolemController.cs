@@ -10,8 +10,9 @@ public class SmashGolemController : MonoBehaviour
     [SerializeField] private Material cooledMaterialFace;
     [SerializeField] private Material cooledMaterialOuter;
     private float _startHeight;
-    private bool _canDamagePlayer = false;
     private int _currentSpot;
+    
+    public bool CanDamagePlayer { get; set; }
     public string State { get; set; } = "Patrolling";
     private PlayerController _player;
     
@@ -42,7 +43,7 @@ public class SmashGolemController : MonoBehaviour
 
     private void Patrol()
     {
-        if (State == "Dead") return;
+        if (State == "Dead" || spots == null) return;
         if (_currentSpot == spots.Length - 1)
         {
             _currentSpot = -1;
@@ -57,10 +58,10 @@ public class SmashGolemController : MonoBehaviour
     private void BeDead()
     {
         State = "Dead";
-        _canDamagePlayer = false;
+        CanDamagePlayer = false;
         Material[] mats = gameObject.GetComponent<Renderer>().materials;
-        mats[0] = cooledMaterialFace;
-        mats[1] = cooledMaterialOuter;
+        mats[0] = cooledMaterialOuter;
+        mats[1] = cooledMaterialFace;
         gameObject.GetComponent<Renderer>().materials = mats;
     }
 
@@ -69,12 +70,12 @@ public class SmashGolemController : MonoBehaviour
         if (State != "Dead")
         {
             yield return new WaitForSeconds(2);
-            _canDamagePlayer = true;
+            CanDamagePlayer = true;
             transform.position = Vector3.MoveTowards(transform.position,
                 new Vector3(transform.position.x, _player.transform.position.y, transform.position.z),
                 speed * 2 * Time.deltaTime);
             yield return new WaitForSeconds(2);
-            _canDamagePlayer = false;
+            CanDamagePlayer = false;
             if (State != "Dead")
             {
                 transform.position = Vector3.MoveTowards(transform.position,
@@ -94,14 +95,6 @@ public class SmashGolemController : MonoBehaviour
         if (other.CompareTag("Player") && State == "Patrolling" && State != "Dead")
         {
             State = "Falling";
-        }
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Player") && _canDamagePlayer && State != "Dead")
-        {
-            _player.ChangeHealth(-3);
         }
     }
 }
