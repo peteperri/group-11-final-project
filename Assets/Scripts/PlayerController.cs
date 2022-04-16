@@ -107,10 +107,13 @@ public class PlayerController : MonoBehaviour
                 speed /= sprintSpeedMultiplier;
             }
         }
-        
-        _staminaBar.SetBarValue(_currentStamina);
-        
 
+        if (_staminaBar != null)
+        {
+            _staminaBar.SetBarValue(_currentStamina);
+        }
+
+        
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -121,7 +124,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlatPickup"))
         {
-            platformAmmo += 5;
+            platformAmmo += 10;
             if (platformPickupAmmoText != null)
             {
                 platformPickupAmmoText.text = "You can spawn platforms.\n" +
@@ -194,8 +197,7 @@ public class PlayerController : MonoBehaviour
         Vector3 groundPos = groundCheck.position;
         
          _isGrounded = Physics.CheckSphere(groundPos, GroundDistance, _groundMask);
-        _canJump = Physics.CheckSphere(groundPos, GroundDistance, _groundMask) ||
-                   Physics.CheckSphere(groundPos, GroundDistance, _platMask);
+        _canJump = Physics.CheckSphere(groundPos, GroundDistance, _groundMask) || Physics.CheckSphere(groundPos, GroundDistance, _platMask);
         if (_canJump && velocity.y < 0)
         {
             velocity.y = -2f;

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5294662815424719832}
   - component: {fileID: 7970980527761841938}
   - component: {fileID: 8745719099271277817}
+  - component: {fileID: 1010359608}
   m_Layer: 3
   m_Name: TallPlatform
-  m_TagString: Untagged
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8475318196593983175}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.45, y: 4.95, z: 117.34}
   m_LocalScale: {x: 381.03818, y: 381.03818, z: 381.03818}
   m_Children: []
@@ -60,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2961f57eebf439f46916f6213b212ef3, type: 2}
+  - {fileID: 2100000, guid: 4b30b9336c88a1d4bb01e8b2ed415b96, type: 2}
   - {fileID: 2100000, guid: d8a367a2c416d8443a1cda92effde00a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -97,3 +98,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2681650109932635546, guid: db17280d3c7b1124a99140f8281272ef, type: 3}
+--- !u!114 &1010359608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8475318196593983175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d1113478b948e4428ebfd04fede7cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
+  cooled: {fileID: 2100000, guid: 2961f57eebf439f46916f6213b212ef3, type: 2}
