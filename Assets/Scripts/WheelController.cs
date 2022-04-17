@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class WheelController : MonoBehaviour
@@ -6,6 +7,7 @@ public class WheelController : MonoBehaviour
     private AudioSource _audioSource;
     [SerializeField] private AudioClip wheelSound;
     [SerializeField] private AudioClip wheelSoundFast;
+    [SerializeField] private SmallRobotController parent;
 
     void Start()
     {
@@ -30,6 +32,16 @@ public class WheelController : MonoBehaviour
                 if (!_audioSource.isPlaying) _audioSource.Play();
                 break;
         }
-        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            parent.Speed = 0;
+            Destroy(other.gameObject);
+            parent.State = "Dead";
+            Debug.Log("dead");
+        }
     }
 }

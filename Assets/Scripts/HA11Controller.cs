@@ -12,12 +12,32 @@ public class HA11Controller : MonoBehaviour
     private PlayerController _player;
     private bool _canHurtPlayer = true;
     private Animation _animation;
+
+    public float Speed
+    {
+        get => speed;
+        set => speed = value;
+    }
+
+    public string State
+    {
+        get => _state;
+        set => _state = value;
+    }
+
+    public Animation Animation
+    {
+        get => _animation;
+        set => _animation = value;
+    }
+
     [SerializeField] private AudioSource walkingSounds;
     [SerializeField] private AudioSource alertSound;
     [SerializeField] private AudioClip died;
     
     private void Start()
     {
+        _animation = GetComponent<Animation>();
         _player = FindObjectOfType<PlayerController>();
         StartCoroutine(PlayWalkSounds());
     }
@@ -84,14 +104,7 @@ public class HA11Controller : MonoBehaviour
             alertSound.Play();
         }
         
-        if (other.CompareTag("Water") && GetComponent<Collider>().GetType() == typeof(CapsuleCollider))
-        {
-            speed = 0;
-            Destroy(other.gameObject);
-            _state = "Dead";
-            _animation.Stop();
-            Debug.Log("dead");
-        }
+        
     }
 
     private void OnCollisionEnter(Collision other)

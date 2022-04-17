@@ -14,7 +14,9 @@ public class ProjectileController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) return;
-        if(other.CompareTag("SmashGolem")) return; 
+        if(other.CompareTag("SmashGolem")) return;
+        if (other.CompareTag("SmallRobot")) return;
+        if (other.CompareTag("HA11")) return;
         Destroy(gameObject);
     }
     
@@ -27,7 +29,7 @@ public class ProjectileController : MonoBehaviour
     
     private IEnumerator KillMii()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(8);
         Destroy(gameObject);
     }
 }

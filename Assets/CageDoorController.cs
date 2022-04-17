@@ -1,8 +1,9 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class CageDoorController : MonoBehaviour
 {
-    [SerializeField] private SmashGolemController[] enemies;
+    [SerializeField] private FireEnemy[] enemies;
     private bool _opened;
     private float _currentDegrees;
     private const float DegreesPerSecond = 15;
@@ -10,18 +11,26 @@ public class CageDoorController : MonoBehaviour
     
     private void Update()
     {
-        foreach (SmashGolemController enemy in enemies)
+        int deadCount = 0;
+        foreach (FireEnemy enemy in enemies)
         {
-            if (!enemy.State.Equals("Dead") || _opened)
-            {
-                return;
-            }
-            transform.Rotate(0, DegreesPerSecond * Time.deltaTime, 0);
-            _currentDegrees += DegreesPerSecond * Time.deltaTime;
-            if (_currentDegrees >= 135)
-            {
-                _opened = true;
-            }
+            if(enemy.isDead)
+                deadCount++;
+        }
+
+        if (deadCount >= enemies.Length && !_opened)
+        {
+            Open();
+        }
+    }
+
+    private void Open()
+    {
+        transform.Rotate(0, DegreesPerSecond * Time.deltaTime, 0);
+        _currentDegrees += DegreesPerSecond * Time.deltaTime;
+        if (_currentDegrees >= 135)
+        {
+            _opened = true;
         }
     }
 }

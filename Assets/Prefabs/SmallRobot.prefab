@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4041707439737170229}
   m_Layer: 0
   m_Name: SmallRobot
-  m_TagString: Untagged
+  m_TagString: SmallRobot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 5627458899096138084}
   - component: {fileID: 252875322919631266}
   - component: {fileID: 7537800147978984373}
+  - component: {fileID: 276638493074320901}
   m_Layer: 0
   m_Name: wheel
   m_TagString: Untagged
@@ -374,6 +375,7 @@ MonoBehaviour:
   rotationSpeed: 45
   wheelSound: {fileID: 8300000, guid: 4d07fbff732d65346bed63215e3d55e2, type: 3}
   wheelSoundFast: {fileID: 8300000, guid: 3a71fec20572d94448d601181dfe5ec7, type: 3}
+  parent: {fileID: 252875323439053793}
 --- !u!82 &7537800147978984373
 AudioSource:
   m_ObjectHideFlags: 0
@@ -470,6 +472,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &276638493074320901
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4759211915596595536}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.008335011, y: 0.015664646, z: 0.016554382}
+  m_Center: {x: -0.000473057, y: 0.0026502227, z: -0.003072925}
 --- !u!1 &7500979581664834008
 GameObject:
   m_ObjectHideFlags: 0

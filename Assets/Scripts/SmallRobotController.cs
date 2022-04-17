@@ -6,6 +6,19 @@ public class SmallRobotController : MonoBehaviour
 {
     [SerializeField] private Transform[] spots;
     [SerializeField] private float speed;
+
+    public float Speed
+    {
+        get => speed;
+        set => speed = value;
+    }
+
+    public string State
+    {
+        get => _state;
+        set => _state = value;
+    }
+
     [SerializeField] private WheelController wheel;
     [SerializeField] private AudioClip deathSound;
     private int _currentSpot;
@@ -84,15 +97,6 @@ public class SmallRobotController : MonoBehaviour
             _audioSource.Play();
             _state = "Chasing";
         }
-        
-        if (other.CompareTag("Water"))
-        {
-            speed = 0;
-            Destroy(other.gameObject);
-            _state = "Dead";
-            Debug.Log("dead");
-        }
-        
     }
 
     private void OnCollisionStay(Collision other)

@@ -267,8 +267,9 @@ MonoBehaviour:
   extraJumpCount: 1
   launchForce: 1000
   platformAmmo: 0
-  waterAmmo: 5
+  waterAmmo: 10
   canSpawnPlatforms: 0
+  coyoteTime: 0
   turnSmoothTime: 0.1
   animator: {fileID: 5648398118854179912}
   pauseMenu: {fileID: 0}

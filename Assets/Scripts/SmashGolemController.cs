@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class SmashGolemController : MonoBehaviour
+public class SmashGolemController : FireEnemy
 {
     [SerializeField] private Transform[] spots;
     [SerializeField] private float speed;
@@ -37,6 +37,7 @@ public class SmashGolemController : MonoBehaviour
 
         if (State == "Dead")
         {
+            isDead = true;
             BeDead();
         }
     }

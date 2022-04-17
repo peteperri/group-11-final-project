@@ -1,9 +1,8 @@
-using System;
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -19,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int platformAmmo = 0;
     [SerializeField] private int waterAmmo = 5;
     [SerializeField] private bool canSpawnPlatforms = true;
+    [SerializeField] private float coyoteTime = 0.2f;
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject pauseMenu;
@@ -51,10 +51,17 @@ public class PlayerController : MonoBehaviour
     private float _currentStamina;
     private AudioSource _playerSounds;
     private StaminaBarController _staminaBar;
+    private float _coyoteTimeCounter;
 
     public Vector3 velocity;
     public float GroundDistance = 0.075f;
-    
+
+    public static string CurrentScene;
+
+    public static bool InfiniteHealth;
+    public static bool InfiniteStamina;
+    public static bool InfiniteAmmo;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -82,6 +89,11 @@ public class PlayerController : MonoBehaviour
         _playerSounds = GetComponent<AudioSource>();
     }
 
+    private void Awake()
+    {
+         CurrentScene = SceneManager.GetActiveScene().name;
+    }
+
     private void Update()
     {
         Move();
@@ -97,7 +109,7 @@ public class PlayerController : MonoBehaviour
             _currentStamina += 1.0f * Time.deltaTime;
         }
 
-        if (_sprinting)
+        if (_sprinting && !InfiniteStamina)
         {
             _currentStamina -= 1.0f * Time.deltaTime;
             if (_currentStamina <= 0)
@@ -118,17 +130,27 @@ public class PlayerController : MonoBehaviour
         {
             Application.Quit();
         }
+
+        if (_canJump || _isGrounded)
+        {
+            _coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            _coyoteTimeCounter -= Time.deltaTime;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PlatPickup"))
         {
+            GameObject pickupText = platformPickupAmmoText.gameObject;
+            pickupText.SetActive(true);
             platformAmmo += 10;
             if (platformPickupAmmoText != null)
             {
-                platformPickupAmmoText.text = "You can spawn platforms.\n" +
-                                              "Platform ammo: " + platformAmmo.ToString();
+                platformPickupAmmoText.text = platformAmmo.ToString();
             }
             canSpawnPlatforms = true;
             Destroy(other.gameObject);
@@ -138,8 +160,11 @@ public class PlayerController : MonoBehaviour
         {
             _playerSounds.clip = gotWater;
             _playerSounds.Play();
-            waterAmmo += 5;
-            waterAmmoText.text = waterAmmo.ToString();
+            waterAmmo += 10;
+            if (waterAmmoText != null)
+            {
+                waterAmmoText.text = waterAmmo.ToString();
+            } 
             Destroy(other.transform.parent.gameObject);
         }
 
@@ -215,13 +240,15 @@ public class PlayerController : MonoBehaviour
             {
                 _hasSpawnedPlatform = false;  
             }
-            _currentJumps = 0;
+            StartCoroutine(WaitAndResetCurrentJumps());
         }
         
     }
 
     public void ChangeHealth(int amount)
     {
+        if (InfiniteHealth) return;
+        
         if (amount > 0)
         {
             _playerSounds.clip = healthSound;
@@ -245,30 +272,38 @@ public class PlayerController : MonoBehaviour
     //inputActions method
     public void Jump(InputAction.CallbackContext context)
     {
-        if (!context.started)
-            return;
-        
-        if ( _canJump || _currentJumps < extraJumpCount)
+        if (context.started)
         {
-            animator.SetBool("IsJumping", true);
-            _currentJumps++;
-            velocity.y = Mathf.Sqrt(JumpHeight * -2f * GravityForce);
-            _playerSounds.clip = jumpSound;
-            _playerSounds.Play();
-        }
-        else if(canSpawnPlatforms && !_hasSpawnedPlatform && platformAmmo > 0)
-        {
-            platformAmmo--;
-            if (platformPickupAmmoText != null)
+            Debug.Log("Jump Button Pressed");
+            if (_canJump || _coyoteTimeCounter > 0f || _currentJumps < extraJumpCount)
             {
-                platformPickupAmmoText.text = "You can spawn platforms.\n" +
-                                              "Platform ammo: " + platformAmmo.ToString();
+                animator.SetBool("IsJumping", true);
+                _currentJumps++;
+                Debug.Log("Adding to _currentJumps");
+                velocity.y = Mathf.Sqrt(JumpHeight * -2f * GravityForce);
+                _playerSounds.clip = jumpSound;
+                _playerSounds.Play();
             }
-            _hasSpawnedPlatform = true;
-            Vector3 pos = GetComponent<Transform>().position;
-            Instantiate(platformPrefab, new Vector3(pos.x, pos.y - 2.0f, pos.z), Quaternion.identity);
-            velocity.y = Mathf.Sqrt(0.5f * -2f * GravityForce);
+            else if((canSpawnPlatforms && !_hasSpawnedPlatform && platformAmmo > 0) || (InfiniteAmmo))
+            {
+                platformAmmo--;
+                if (platformPickupAmmoText != null)
+                {
+                    platformPickupAmmoText.text = platformAmmo.ToString();
+                }
+                _hasSpawnedPlatform = true;
+                Vector3 pos = GetComponent<Transform>().position;
+                Instantiate(platformPrefab, new Vector3(pos.x, pos.y - 2.0f, pos.z), Quaternion.identity);
+                velocity.y = Mathf.Sqrt(0.5f * -2f * GravityForce);
+            }
         }
+
+        if (context.canceled)
+        {
+            _coyoteTimeCounter = 0f;
+        }
+
+        
     }
 
     //inputActions method
@@ -293,17 +328,25 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (!context.started || waterAmmo <= 0) return;
+        if (!context.started) return;
 
-        _playerSounds.clip = shootSound;
-        _playerSounds.Play();
-        waterAmmo--;
-        if (waterAmmoText != null)
+        if (waterAmmo > 0 || InfiniteAmmo)
         {
-            waterAmmoText.text = waterAmmo.ToString();
+
+            _playerSounds.clip = shootSound;
+            _playerSounds.Play();
+            if (!InfiniteAmmo)
+            {
+                waterAmmo--;
+            }
+            if (waterAmmoText != null)
+            {
+                waterAmmoText.text = waterAmmo.ToString();
+            }
+
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            projectile.GetComponent<Rigidbody>().AddRelativeForce(this.transform.forward * launchForce);
         }
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        projectile.GetComponent<Rigidbody>().AddRelativeForce(this.transform.forward * launchForce);
 
     }
 
@@ -329,5 +372,11 @@ public class PlayerController : MonoBehaviour
     public int getHealth()
     {
         return health;
+    }
+
+    private IEnumerator WaitAndResetCurrentJumps()
+    {
+        yield return new WaitForSeconds(0.15f);
+        _currentJumps = 0;
     }
 }

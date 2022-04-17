@@ -13,6 +13,8 @@ TagManager:
   - FuseBox
   - HealthPickup
   - SmashGolem
+  - SmallRobot
+  - HA11
   layers:
   - Default
   - TransparentFX
