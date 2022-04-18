@@ -6,6 +6,7 @@ public class LavaController : MonoBehaviour
 {
     [SerializeField] private int damageAmount;
     [SerializeField] private Material cooled;
+    [SerializeField] private ParticleSystem flames;
 
     private PlayerController _player;
     private Renderer _renderer;
@@ -52,6 +53,11 @@ public class LavaController : MonoBehaviour
         {
             _hot = false;
             _renderer.material = cooled;
+            if (flames != null)
+            {
+                flames.Stop();
+            }
+
             Destroy(other.gameObject);
         }
         if(other.gameObject.CompareTag("Player") && _hot)

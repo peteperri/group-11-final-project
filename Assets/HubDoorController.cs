@@ -14,6 +14,18 @@ public class HubDoorController : MonoBehaviour
     private void Awake()
     {
         Debug.Log($"Past Complete: {pastComplete} Present Complete: {presentComplete} Future Complete: {futureComplete}");
+        if (pastComplete && isPastDoor)
+        {
+            Destroy(gameObject);
+        }
+        if (presentComplete && isPresentDoor)
+        {
+            Destroy(gameObject);
+        }
+        if (futureComplete && isFutureDoor)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

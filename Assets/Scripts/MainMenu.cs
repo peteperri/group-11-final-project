@@ -15,32 +15,17 @@ public class MainMenu : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
     }
-
-    private void Update() //delete me
-    {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            SceneManager.LoadScene("Past");
-        }
-        
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            SceneManager.LoadScene("Present");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            SceneManager.LoadScene("Art Test");
-        }
-    }
     
     public void ReturnToMainMenu ()
     {
-        SceneManager.LoadScene("Hub");
+        SceneManager.LoadScene("MainMenu");
     }
     
     public void StartGame ()
     {
+        HubDoorController.pastComplete = false;
+        HubDoorController.presentComplete = false;
+        HubDoorController.futureComplete = false;
         SceneManager.LoadScene("Hub");
     }
 
