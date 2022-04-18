@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
     public static bool InfiniteStamina;
     public static bool InfiniteAmmo;
 
+    private bool isMoving;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -104,12 +106,12 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("LoseMenu");
         }
 
-        if (!_sprinting && _currentStamina < maxStamina)
+        if ((!_sprinting || !isMoving) && _currentStamina < maxStamina)
         {
             _currentStamina += 1.0f * Time.deltaTime;
         }
 
-        if (_sprinting && !InfiniteStamina)
+        if (_sprinting && !InfiniteStamina && isMoving)
         {
             _currentStamina -= 1.0f * Time.deltaTime;
             if (_currentStamina <= 0)
@@ -148,6 +150,8 @@ public class PlayerController : MonoBehaviour
             GameObject pickupText = platformPickupAmmoText.gameObject;
             pickupText.SetActive(true);
             platformAmmo += 10;
+            _playerSounds.clip = healthSound;
+            _playerSounds.Play();
             if (platformPickupAmmoText != null)
             {
                 platformPickupAmmoText.text = platformAmmo.ToString();
@@ -198,6 +202,16 @@ public class PlayerController : MonoBehaviour
         Vector2 moveInput = _playerActions.Player.Move.ReadValue<Vector2>();
         float horizontal = moveInput.x; //Input.GetAxisRaw("Horizontal"); //old input system way
         float vertical = moveInput.y; //Input.GetAxisRaw("Vertical"); //old input system way
+
+        if (horizontal != 0 || vertical != 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
         Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
 
         if (direction.magnitude >= 0.1)

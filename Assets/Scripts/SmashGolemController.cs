@@ -9,17 +9,20 @@ public class SmashGolemController : FireEnemy
     [SerializeField] private float speed;
     [SerializeField] private Material cooledMaterialFace;
     [SerializeField] private Material cooledMaterialOuter;
+    private AudioSource _audioSource;
     private float _startHeight;
     private int _currentSpot;
     
     public bool CanDamagePlayer { get; set; }
     public string State { get; set; } = "Patrolling";
     private PlayerController _player;
+    private bool _soundPlayed;
     
     private void Start()
     {
         _player = FindObjectOfType<PlayerController>();
         _startHeight = spots[0].transform.position.y;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -58,6 +61,12 @@ public class SmashGolemController : FireEnemy
 
     private void BeDead()
     {
+        if (!_soundPlayed)
+        {
+            _audioSource.Play();
+            _soundPlayed = true;
+        }
+
         State = "Dead";
         CanDamagePlayer = false;
         Material[] mats = gameObject.GetComponent<Renderer>().materials;

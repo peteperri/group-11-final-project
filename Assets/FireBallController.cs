@@ -15,7 +15,7 @@ public class FireBallController : FireEnemy
     private float _animStartTime;
     private Renderer _renderer;
     private Rigidbody _rb;
-
+    private AudioSource _audioSource;
     private Animation _animation;
     //private AudioSource _audioSource;
 
@@ -28,6 +28,7 @@ public class FireBallController : FireEnemy
         _animation.Stop();
         _rb = GetComponent<Rigidbody>();
         _renderer = GetComponent<Renderer>();
+        _audioSource = GetComponent<AudioSource>();
 
         //_audioSource = GetComponent<AudioSource>();
     }
@@ -46,6 +47,10 @@ public class FireBallController : FireEnemy
                 _rb.isKinematic = false;
                 transform.position += new Vector3(0, 3, 0);
                 transform.localScale = new Vector3(1f, 1f, 1f);
+                _audioSource.clip = deathSound;
+                _audioSource.loop = false;
+                _audioSource.volume += 1.0f;
+                _audioSource.Play();
                 _rb.AddForce(Random.Range(50f, 100f), Random.Range(50f, 1000f), Random.Range(50f, 1000f));
                 StartCoroutine(WaitAndKillMe());
                 //_audioSource.clip = deathSound;

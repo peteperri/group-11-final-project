@@ -7,6 +7,8 @@ public class SundialController : MonoBehaviour
     [SerializeField] private GameObject arrow;
     [SerializeField] private GameObject clock;
     [SerializeField] private GameObject pedestal;
+
+    private AudioSource _audioSource;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -25,7 +27,7 @@ public class SundialController : MonoBehaviour
         }
         else
         {
-            arrow.SetActive(false);
+            pedestal.SetActive(false);
         }
 
         if (HubDoorController.futureComplete)
@@ -34,7 +36,15 @@ public class SundialController : MonoBehaviour
         }
         else
         {
-            arrow.SetActive(false);
+            clock.SetActive(false);
+        }
+
+        if (HubDoorController.presentComplete
+            || HubDoorController.pastComplete
+            || HubDoorController.futureComplete)
+        {
+            _audioSource = GetComponent<AudioSource>();
+            _audioSource.Play();
         }
     }
 

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8475318196593983175
+--- !u!1 &492700009128882280
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9139404887079199869}
-  - component: {fileID: 5294662815424719832}
-  - component: {fileID: 7970980527761841938}
-  - component: {fileID: 8745719099271277817}
-  - component: {fileID: 1010359608}
-  - component: {fileID: 1632598438}
+  - component: {fileID: 981147692879391442}
+  - component: {fileID: 4193527682988385655}
+  - component: {fileID: 2150064736351998397}
+  - component: {fileID: 727056313917658900}
+  - component: {fileID: 727056313917658987}
+  - component: {fileID: 727056313917658985}
+  - component: {fileID: 727056313917658984}
+  - component: {fileID: 3148229114418882610}
   m_Layer: 3
-  m_Name: TallPlatform
-  m_TagString: Lava
+  m_Name: fireballEnemy_final
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9139404887079199869
+--- !u!4 &981147692879391442
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8475318196593983175}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.45, y: 4.95, z: 117.34}
-  m_LocalScale: {x: 381.03818, y: 381.03818, z: 381.03818}
+  m_GameObject: {fileID: 492700009128882280}
+  m_LocalRotation: {x: 0, y: 0.19351521, z: 0, w: 0.9810973}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5294662815424719832
+  m_LocalEulerAnglesHint: {x: 0, y: 22.316, z: 0}
+--- !u!33 &4193527682988385655
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8475318196593983175}
-  m_Mesh: {fileID: 2681650109932635546, guid: db17280d3c7b1124a99140f8281272ef, type: 3}
---- !u!23 &7970980527761841938
+  m_GameObject: {fileID: 492700009128882280}
+  m_Mesh: {fileID: -780310699555666510, guid: 7dc29a934a27da94d808d3d55f7b045a, type: 3}
+--- !u!23 &2150064736351998397
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8475318196593983175}
+  m_GameObject: {fileID: 492700009128882280}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -62,8 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cbcdef203e00a1042bff356f616ebee0, type: 2}
-  - {fileID: 2100000, guid: d8a367a2c416d8443a1cda92effde00a, type: 2}
+  - {fileID: 2100000, guid: c6b2383e1d7d5374e8ab8dd9965f1c16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,50 +86,82 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8745719099271277817
+--- !u!54 &727056313917658900
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492700009128882280}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &727056313917658987
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8475318196593983175}
+  m_GameObject: {fileID: 492700009128882280}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 2681650109932635546, guid: db17280d3c7b1124a99140f8281272ef, type: 3}
---- !u!114 &1010359608
+  m_Mesh: {fileID: -780310699555666510, guid: 7dc29a934a27da94d808d3d55f7b045a, type: 3}
+--- !u!111 &727056313917658985
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492700009128882280}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 1827226128182048838, guid: 7dc29a934a27da94d808d3d55f7b045a, type: 3}
+  m_Animations:
+  - {fileID: 1827226128182048838, guid: 7dc29a934a27da94d808d3d55f7b045a, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &727056313917658984
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8475318196593983175}
+  m_GameObject: {fileID: 492700009128882280}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d1113478b948e4428ebfd04fede7cc0, type: 3}
+  m_Script: {fileID: 11500000, guid: ae5fbadfa732460439b9b8eb82d3b2d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 1
-  cooled: {fileID: 2100000, guid: 2961f57eebf439f46916f6213b212ef3, type: 2}
-  flames: {fileID: 0}
---- !u!82 &1632598438
+  isDead: 0
+  deathSound: {fileID: 8300000, guid: 2bb5f5852babbbb46a7f739604a70a4f, type: 3}
+  deadMaterial: {fileID: 2100000, guid: 560faaa2f0440554982ec279c34cf0d7, type: 2}
+--- !u!82 &3148229114418882610
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8475318196593983175}
+  m_GameObject: {fileID: 492700009128882280}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 235cb92f58d2c3c4991388edea02cce7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 12a15bf6fd186364686e90423923fee8, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.136
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

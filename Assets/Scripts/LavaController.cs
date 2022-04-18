@@ -12,11 +12,17 @@ public class LavaController : MonoBehaviour
     private Renderer _renderer;
     private bool _damagingPlayer;
     private bool _hot = true;
+    private AudioSource _audioSource;
 
     private void Start()
     {
         _player = FindObjectOfType<PlayerController>();
         _renderer = GetComponent<Renderer>();
+
+        if (GetComponent<AudioSource>() != null)
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
     }
 
     private void Update()
@@ -56,6 +62,11 @@ public class LavaController : MonoBehaviour
             if (flames != null)
             {
                 flames.Stop();
+            }
+
+            if (_audioSource != null)
+            {
+                _audioSource.Stop();
             }
 
             Destroy(other.gameObject);
