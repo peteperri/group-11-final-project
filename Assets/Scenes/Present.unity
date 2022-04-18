@@ -2673,6 +2673,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4879468188596516676}
     m_Modifications:
+    - target: {fileID: 5814883706954685568, guid: 93356f36bb65dfb4e84cdf8c81a6a2ca, type: 3}
+      propertyPath: m_text
+      value: "WASD to Move / Space to Jump / Shift to Sprint\nLeft Click to Shoot
+        / Mouse to Look\n\nP to Pause/Unpause\nESC to Quit\n\nTo succeed in the present,
+        use the magic\nof the crystal to ascend the tower... \nBefore it's too late!\n\nCreated
+        By: Peter Perri (Code), Cole Hedlund (Tech), Toby Martin (Tech), Brooke Lamothe
+        (Tech), Nik Gardner (Art), Victoria Richey (Art), Graciana Baker (Art)"
+      objectReference: {fileID: 0}
     - target: {fileID: 5814883707102255018, guid: 93356f36bb65dfb4e84cdf8c81a6a2ca, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

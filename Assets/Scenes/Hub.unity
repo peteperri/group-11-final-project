@@ -1091,6 +1091,28 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 3e5672eea7c06ed4d9dbe2580b6ba547, type: 3}
+    - target: {fileID: 5814883706641855097, guid: 43bc7e3c107410c46a327dfc487c8a67, type: 3}
+      propertyPath: m_text
+      value: 'WASD to Move / Space to Jump / Shift to Sprint
+
+        Left Click
+        to Shoot / Mouse to Look
+
+
+        P to Pause/Unpause
+
+        ESC to Quit
+
+
+        Travel
+        through time and defeat the evil wizard Alagrazz Montus and repair the timeline.
+        Gather pieces of the Sacred Sundial to defeat him.
+
+
+        Created By:
+        Peter Perri (Code), Cole Hedlund (Tech), Toby Martin (Tech), Brooke Lamothe
+        (Tech), Nik Gardner (Art), Victoria Richey (Art), Graciana Baker (Art)'
+      objectReference: {fileID: 0}
     - target: {fileID: 6754146575676633485, guid: 43bc7e3c107410c46a327dfc487c8a67, type: 3}
       propertyPath: m_IsActive
       value: 0

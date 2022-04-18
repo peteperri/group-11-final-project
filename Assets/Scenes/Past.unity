@@ -5956,7 +5956,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 327650020}
-  m_LocalRotation: {x: 0.058935, y: 0.19396889, z: -0.011674785, w: 0.9791662}
+  m_LocalRotation: {x: 0.058935, y: 0.19396892, z: -0.011674789, w: 0.9791662}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6377,6 +6377,36 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 3c9abfe40ff416e4aa559578cd161d42, type: 3}
+    - target: {fileID: 5814883706641855097, guid: 43bc7e3c107410c46a327dfc487c8a67, type: 3}
+      propertyPath: m_text
+      value: 'WASD to Move / Space to Jump / Shift to Sprint
+
+        Left Click
+        to Shoot / Mouse to Look
+
+
+        P to Pause/Unpause
+
+        ESC to Quit
+
+
+        To
+        succeed in the past, give the gift
+
+        of water to all beings enraged
+        by fire.
+
+        Only then will your objective unlock...
+
+
+        Created
+        By: Peter Perri (Code), Cole Hedlund (Tech), Toby Martin (Tech), Brooke Lamothe
+        (Tech), Nik Gardner (Art), Victoria Richey (Art), Graciana Baker (Art)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814883706894874962, guid: 43bc7e3c107410c46a327dfc487c8a67, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43bc7e3c107410c46a327dfc487c8a67, type: 3}
 --- !u!1001 &540969060
@@ -17667,7 +17697,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971850058}
-  m_LocalRotation: {x: 0.07384975, y: 0.19376852, z: -0.014629339, w: 0.97815436}
+  m_LocalRotation: {x: 0.07384975, y: 0.19376853, z: -0.014629342, w: 0.97815436}
   m_LocalPosition: {x: -12.095831, y: 10.651411, z: 2.5472412}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -34008,7 +34038,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575759217}
-  m_LocalRotation: {x: 0.09446425, y: 0.19341683, z: -0.01871299, w: 0.97637916}
+  m_LocalRotation: {x: 0.094464265, y: 0.1934168, z: -0.018712992, w: 0.97637916}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -35223,7 +35253,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh234330
+  m_Name: pb_Mesh52846
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
