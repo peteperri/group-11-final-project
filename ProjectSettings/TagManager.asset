@@ -15,6 +15,7 @@ TagManager:
   - SmashGolem
   - SmallRobot
   - HA11
+  - ThirdPersonCam
   layers:
   - Default
   - TransparentFX

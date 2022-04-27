@@ -10,6 +10,9 @@ public class MainMenu : MonoBehaviour
     public Toggle InfiniteHealthToggle;
     public Toggle InfiniteAmmoToggle;
     public Toggle InfiniteStaminaToggle;
+    public Toggle InfinitePlatformToggle;
+    public Toggle InvertYToggle;
+    public Toggle InvertXToggle;
     
     private void Start()
     {
@@ -26,6 +29,7 @@ public class MainMenu : MonoBehaviour
         HubDoorController.pastComplete = false;
         HubDoorController.presentComplete = false;
         HubDoorController.futureComplete = false;
+        Debug.Log("StartGame");
         SceneManager.LoadScene("Hub");
     }
 
@@ -41,16 +45,37 @@ public class MainMenu : MonoBehaviour
 
     public void SetInfiniteHealth()
     {
+        Debug.Log("SetInfHealth");
         PlayerController.InfiniteHealth = InfiniteHealthToggle.isOn;
     }
     
     public void SetInfiniteAmmo()
     {
+        Debug.Log("SetInfAmmo");
         PlayerController.InfiniteAmmo = InfiniteAmmoToggle.isOn;
+    }
+    
+    public void SetInfinitePlatAmmo()
+    {
+        Debug.Log("SetInfPlat");
+        PlayerController.InfinitePlatformAmmo = InfinitePlatformToggle.isOn;
     }
     
     public void SetInfiniteStamina()
     {
+        Debug.Log("SetInfStam");
         PlayerController.InfiniteStamina = InfiniteStaminaToggle.isOn;
+    }
+    
+    public void SetInverseXAxis()
+    {
+        Debug.Log("SetInverseXAxis");
+        PlayerController.InverseX = InvertXToggle.isOn;
+    }
+    
+    public void SetInverseYAxis()
+    {
+        Debug.Log("SetInverseYAxis");
+        PlayerController.InverseY = InvertYToggle.isOn;
     }
 }

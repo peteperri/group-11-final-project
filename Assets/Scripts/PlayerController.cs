@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip jumpSound;
     [SerializeField] private Text platformPickupAmmoText;
     [SerializeField] private Text waterAmmoText;
-
+    
     private CharacterController _controller;
     private Camera _camera;
     private float _turnSmoothVelocity;
@@ -61,8 +61,12 @@ public class PlayerController : MonoBehaviour
     public static bool InfiniteHealth;
     public static bool InfiniteStamina;
     public static bool InfiniteAmmo;
+    public static bool InfinitePlatformAmmo;
+    public static bool InverseX;
+    public static bool InverseY;
 
     private bool isMoving;
+    
 
     private void Start()
     {
@@ -71,6 +75,8 @@ public class PlayerController : MonoBehaviour
         
         _controller = GetComponent<CharacterController>();
         _freeLook = cineMachine.GetComponent<CinemachineFreeLook>();
+        _freeLook.m_XAxis.m_InvertInput = InverseX;
+        _freeLook.m_YAxis.m_InvertInput = InverseY;
 
         _playerActions = new InputHandler();
         _playerActions.Player.Enable();
@@ -89,6 +95,8 @@ public class PlayerController : MonoBehaviour
             waterAmmoText.text = waterAmmo.ToString();
         }
         _playerSounds = GetComponent<AudioSource>();
+        
+        
     }
 
     private void Awake()
@@ -298,7 +306,7 @@ public class PlayerController : MonoBehaviour
                 _playerSounds.clip = jumpSound;
                 _playerSounds.Play();
             }
-            else if((canSpawnPlatforms && !_hasSpawnedPlatform && platformAmmo > 0) || (InfiniteAmmo))
+            else if((canSpawnPlatforms && !_hasSpawnedPlatform && platformAmmo > 0) || (InfinitePlatformAmmo))
             {
                 platformAmmo--;
                 if (platformPickupAmmoText != null)
