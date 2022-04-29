@@ -319,13 +319,10 @@ public class PlayerController : MonoBehaviour
                 velocity.y = Mathf.Sqrt(0.5f * -2f * GravityForce);
             }
         }
-
         if (context.canceled)
         {
             _coyoteTimeCounter = 0f;
         }
-
-        
     }
 
     //inputActions method

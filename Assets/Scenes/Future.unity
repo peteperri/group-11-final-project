@@ -13384,6 +13384,10 @@ PrefabInstance:
       propertyPath: sparks
       value: 
       objectReference: {fileID: 696341878}
+    - target: {fileID: 786767490040849121, guid: 329ef843c7d08d7438a3156331a3fa95, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 786767491487759183, guid: 329ef843c7d08d7438a3156331a3fa95, type: 3}
       propertyPath: icon
       value: 
@@ -29421,15 +29425,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8458180262231819200, guid: 2263919ed7213cb47aa6787a52d67054, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.095108636
+      value: 0.09510861
       objectReference: {fileID: 0}
     - target: {fileID: 8458180262231819200, guid: 2263919ed7213cb47aa6787a52d67054, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.19487996
+      value: 0.19488001
       objectReference: {fileID: 0}
     - target: {fileID: 8458180262231819200, guid: 2263919ed7213cb47aa6787a52d67054, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.018990146
+      value: -0.018990148
       objectReference: {fileID: 0}
     - target: {fileID: 8458180262231819207, guid: 2263919ed7213cb47aa6787a52d67054, type: 3}
       propertyPath: m_LookAt

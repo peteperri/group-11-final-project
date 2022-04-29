@@ -5595,7 +5595,7 @@ PrefabInstance:
       objectReference: {fileID: 4879468190315952525}
     - target: {fileID: 4474383417203846195, guid: e3a04a433f8621e46bdcf9a002b718d0, type: 3}
       propertyPath: GroundDistance
-      value: 0.25
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 4474383417203846195, guid: e3a04a433f8621e46bdcf9a002b718d0, type: 3}
       propertyPath: extraJumpCount
